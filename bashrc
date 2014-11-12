@@ -129,7 +129,7 @@ git_prompt=0
 
 branch_color() {
     color=""
-    gitstatus=$(git status 2> /dev/null | sed -n '/:$/ s/^# //p' | tail -n 1)
+    gitstatus=$(git status 2> /dev/null | sed -n '/:$/p' | tail -n 1)
     case "$gitstatus" in
         "Untracked files:" ) color=${c_pink};;
         "Changes not staged for commit:" ) color=${c_red};;
@@ -173,33 +173,10 @@ pserv() {
     python -m SimpleHTTPServer $port > /dev/null 2>&1 &
 }
 
-#pserv_kill() {
-#    servers=$(ps x | grep -P 'python.*SimpleHTTPServer' | grep -v grep)
-#    if [ -z "$servers" ]; then
-#        echo "no python servers to kill"
-#        return 0
-#    fi
-#
-#    declare -A proctab
-#    for server in $servers; do
-#        local proc=$(awk '{print $1}') $server
-#        local port=$(awk '{print $NF}') $server
-#        proctab["$port"]="$proc"
-#    done
-#    echo "${proctab[@]}"
-#    echo "${!proctab[@]}"
-#    if [ $1 ]; then
-#        for proc in $procs; do
-#            if [ "$1" -eq "$proc" ]; then
-#                $(kill $1)
-#                break
-#            fi
-#        done
-#    else
-#        # no argument passed; kill 'em all
-#        $(xargs kill) < $procs
-#    fi
-#    echo $procs
-#}
-
-PATH=~/bin:$PATH
+killothers() {
+    local current_pts=`ps | tail -n +2 | awk '{print $2}' | uniq | sed 's/pts/pts\\\\/'`
+    for PID in $(ps x | grep sshd | grep -v grep | sed "/$current_pts/d" | awk '{print $1}')
+    do
+        kill $PID
+    done
+}
