@@ -117,6 +117,7 @@ if ! shopt -oq posix; then
 fi
 
 export EDITOR=vi
+export PATH=$PATH:~/bin
 
 if [ -d ~/.dotfiles/bashrc.d ]; then
     for i in ~/.dotfiles/bashrc.d/*.sh; do
