@@ -6,6 +6,7 @@
 [alias]
 	tree = log --graph --decorate --pretty=oneline --abbrev-commit
 	st = status
+	pl = log --pretty=format:'%C(yellow)%h %C(green)%ad %C(red)%an%x09%C(reset)%s' --date=short
 [core]
 	editor = vim
 [push]
