@@ -116,6 +116,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
+export LC_ALL="en_US.UTF-8"
 export EDITOR=vi
 export PATH=$PATH:~/bin
 
