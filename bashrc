@@ -128,3 +128,7 @@ if [ -d ~/.dotfiles/bashrc.d ]; then
     done
     unset i
 fi
+
+export TERM="screen-256color"
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
