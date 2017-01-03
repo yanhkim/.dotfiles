@@ -9,5 +9,7 @@
 	pl = log --pretty=format:'%C(yellow)%h %C(green)%ad %C(red)%an%x09%C(reset)%s' --date=short
 [core]
 	editor = vim
+	autocrlf = false
+	filemode = false
 [push]
 	default = simple
